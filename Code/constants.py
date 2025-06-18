@@ -1,20 +1,21 @@
-from PyQt6.QtWidgets import QApplication
-
-
 SIZE = 200
 MOVEMENT = 5
 INTERVAL = 10
-STOP_NUM = (1000 / INTERVAL) * 10
+STOP_NUM = (1000 / INTERVAL) * 2
+NUMBER = 9
+
 COLORS = [
     "#FF0000",  # Красный
-    "#FFA500",  # Оранжевый
-    "#FFFF00",  # Жёлтый
-    "#00FF00",  # Зелёный
-    "#00FFFF",  # Голубой
+    "#00FF00",  # Ярко-зелёный
     "#0000FF",  # Синий
-    "#8A2BE2"   # Фиолетовый
+    "#FFFF00",  # Жёлтый
+    "#00FFFF",  # Голубой
+    "#FFA500",  # Оранжевый
+    "#8A2BE2",  # Фиолетовый (синеватый)
+    "#FF69B4",  # Розовый
+    "#ADFF2F",  # Зелёный с желтым оттенком
 ]
+ANGLES = [360 / NUMBER * i for i in range(NUMBER)]
 
-
-for screen in QApplication.screens():
-    print(screen)
+RADIUS = 3  # чем меньше тем больше радиус
+STEP_ANGLE = 1  # чем больше тем быстрее крутится

@@ -1,27 +1,31 @@
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel, QWidget
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, pyqtSignal
 
 from Code.functions import *
 
 
 class Window(QWidget):
+    placed = pyqtSignal()
+
     def __init__(self, SCREEN_SIZE, color):
         super().__init__()
         self.X, self.Y = SCREEN_SIZE.width(), SCREEN_SIZE.height()
         self.dx, self.dy = gen_coords(), gen_coords()
         self.count = 0
         self.color = color
+        self.angle = ANGLES[self.color]
+        self.coords = calculate_coords(self.angle, self.X, self.Y)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.moves)
 
         self.initUI()
-        self.timer.start(INTERVAL)
 
     def initUI(self):
         start_coords = get_start_coords(self.X, self.Y)
-        self.setGeometry(*start_coords, SIZE, SIZE)
+        self.setFixedSize(SIZE, SIZE)
+        self.move(*start_coords)
         self.setWindowTitle('Ключик')
 
         self.pixmap = QPixmap('data/default_key.png')
@@ -45,4 +49,31 @@ class Window(QWidget):
             self.dy *= -1
 
         if self.count == STOP_NUM:
+            self.count = 0
             self.timer.stop()
+            self.timer.disconnect()
+            self.timer.timeout.connect(self.get_to_pos)
+            self.timer.start(INTERVAL)
+
+    def get_to_pos(self):
+        pos = self.pos()
+        x, y = move_x_y(pos.x(), pos.y(), self.coords)
+        self.move(x, y)
+
+        if x == self.coords[0] and y == self.coords[1]:
+            self.timer.stop()
+            self.placed.emit()
+
+    def start_angel(self):
+        self.timer.disconnect()
+        self.timer.timeout.connect(self.angles)
+        self.timer.start(INTERVAL)
+
+    def angles(self):
+        self.count += 1
+        self.move(*calculate_coords(self.angle, self.X, self.Y))
+        self.angle += STEP_ANGLE
+
+        if self.count == STOP_NUM:
+            self.timer.stop()
+
