@@ -1,16 +1,27 @@
+from pygame import mixer
+
 from Code.constants import *
 from Code.window import Window
 
+class Sound():
+    def __init__(self):
+        mixer.init()
+        self.sounds()
+
+    def sounds(self):
+        self.sound = mixer.Sound('data/sound.mp3')
 
 class Manager():
     def __init__(self, screen_size):
         self.placed = 0
         self.windows = []
+        self.sound = Sound()
         for i in range(NUMBER):
-            win = Window(screen_size, i)
+            win = Window(screen_size, i, self.sound)
             win.placed.connect(self.all_placed)
             win.show()
             self.windows.append(win)
+
 
     def start(self):
         for win in self.windows:

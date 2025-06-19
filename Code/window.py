@@ -1,17 +1,19 @@
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel, QWidget
-from PyQt6.QtCore import QTimer, pyqtSignal
+from PyQt6.QtCore import QTimer, pyqtSignal, Qt
 
 from Code.functions import *
+from Code.jokes import *
 
 
 class Window(QWidget):
     placed = pyqtSignal()
 
-    def __init__(self, SCREEN_SIZE, color):
+    def __init__(self, SCREEN_SIZE, color, sound):
         super().__init__()
         self.X, self.Y = SCREEN_SIZE.width(), SCREEN_SIZE.height()
         self.dx, self.dy = gen_coords(), gen_coords()
+        self.sound = sound
         self.count = 0
         self.color = color
         self.angle = ANGLES[self.color]
@@ -76,4 +78,8 @@ class Window(QWidget):
 
         if self.count == STOP_NUM:
             self.timer.stop()
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton or event.button() == Qt.MouseButton.RightButton:
+            exec(f'joke{self.color + 1}(self.X, self.Y, self.sound)')
 
