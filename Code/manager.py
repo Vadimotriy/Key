@@ -1,4 +1,5 @@
 from pygame import mixer
+from time import sleep
 
 from Code.constants import *
 from Code.window import Window
@@ -19,6 +20,7 @@ class Manager():
         for i in range(NUMBER):
             win = Window(screen_size, i, self.sound)
             win.placed.connect(self.all_placed)
+            win.joked.connect(self.close)
             win.show()
             self.windows.append(win)
 
@@ -32,3 +34,8 @@ class Manager():
         if self.placed == NUMBER:
             for win in self.windows:
                 win.start_angel()
+
+    def close(self):
+        sleep(5)
+        for win in self.windows:
+            win.close()

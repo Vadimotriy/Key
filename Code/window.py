@@ -8,6 +8,7 @@ from Code.jokes import *
 
 class Window(QWidget):
     placed = pyqtSignal()
+    joked = pyqtSignal()
 
     def __init__(self, SCREEN_SIZE, color, sound):
         super().__init__()
@@ -81,5 +82,7 @@ class Window(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton or event.button() == Qt.MouseButton.RightButton:
-            exec(f'joke{self.color + 1}(self.X, self.Y, self.sound)')
-
+            if not check():
+                activated()
+                exec(f'joke{self.color + 1}(self.X, self.Y, self.sound)')
+            self.joked.emit()

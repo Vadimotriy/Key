@@ -39,3 +39,12 @@ def move_x_y(x, y, coords):
         y = y - 1 if y > coords[0] else y + 1
 
     return x, y
+
+
+def check():
+    return ACTIVATED
+
+
+def activated():
+    global ACTIVATED
+    ACTIVATED = True

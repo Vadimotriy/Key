@@ -8,9 +8,10 @@ def joke1(width, height, mixer):  # Звук на максимум
     devices = AudioUtilities.GetSpeakers()
     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
     volume = cast(interface, POINTER(IAudioEndpointVolume))
-    volume.SetMasterVolumeLevelScalar(0.5, None)
+    volume.SetMasterVolumeLevelScalar(0.1, None)
 
-    mixer.sound.play()
+    for i in range(5):
+        mixer.sound.play()
 
 
 def joke2(width, height, mixer):  # Звук на максимум
