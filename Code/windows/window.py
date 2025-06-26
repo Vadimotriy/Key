@@ -84,5 +84,6 @@ class Window(QWidget):
         if event.button() == Qt.MouseButton.LeftButton or event.button() == Qt.MouseButton.RightButton:
             if not check():
                 activated()
+                self.joked.emit()
+
                 exec(f'joke{self.color + 1}(self.X, self.Y, self.sound)')
-            self.joked.emit()

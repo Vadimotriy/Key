@@ -2,7 +2,7 @@ from pygame import mixer
 from time import sleep
 
 from Code.constants import *
-from Code.window import Window
+from Code.windows.window import Window
 
 class Sound():
     def __init__(self):

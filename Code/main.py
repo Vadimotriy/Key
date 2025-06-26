@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 
-from Code.manager import Manager
+from Code.windows.manager import Manager
 
 
 if __name__ == '__main__':
@@ -9,4 +9,4 @@ if __name__ == '__main__':
     SCREEN_SIZE = QApplication.primaryScreen().size()
     manager = Manager(SCREEN_SIZE)
     manager.start()
-    sys.exit(app.exec())
+    app.exec()

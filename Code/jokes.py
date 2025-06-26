@@ -1,8 +1,12 @@
-from Code.constants import *
+import sys
+
+from PyQt6.QtWidgets import QApplication
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
 
+from Code.constants import *
+from Code.windows.image import ImageWindow
 
 def joke1(width, height, mixer):  # Звук на максимум
     devices = AudioUtilities.GetSpeakers()
@@ -19,7 +23,10 @@ def joke2(width, height, mixer):  # Звук на максимум
 
 
 def joke3(width, height, mixer):  # Звук на максимум
-    pass
+    app = QApplication(sys.argv)
+    new_window = ImageWindow('bluewindow', width, height)
+    new_window.show()
+    app.exec()
 
 
 def joke4(width, height, mixer):  # Звук на максимум
