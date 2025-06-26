@@ -36,6 +36,6 @@ class Manager():
                 win.start_angel()
 
     def close(self):
-        sleep(5)
         for win in self.windows:
             win.close()
+        sleep(3)
