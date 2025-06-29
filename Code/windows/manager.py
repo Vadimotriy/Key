@@ -3,6 +3,8 @@ from time import sleep
 
 from Code.constants import *
 from Code.windows.window import Window
+from Code.windows.image import ImageWindow
+
 
 class Sound():
     def __init__(self):
@@ -11,6 +13,7 @@ class Sound():
 
     def sounds(self):
         self.sound = mixer.Sound('data/sound.mp3')
+
 
 class Manager():
     def __init__(self, screen_size):
@@ -23,7 +26,7 @@ class Manager():
             win.joked.connect(self.close)
             win.show()
             self.windows.append(win)
-
+        self.width, self.height = screen_size.width, screen_size.height
 
     def start(self):
         for win in self.windows:
@@ -37,4 +40,18 @@ class Manager():
 
     def close(self):
         for win in self.windows:
+            if win.state:
+                num = win.color
             win.close()
+
+        exec(f'self.joke{num}()')
+
+    def joke0(self):  # Звук на максимум
+        for i in range(5):
+            self.sound.sound.play()
+        sleep(3)
+
+    def joke2(self):  # Экран смерти
+        new_window = ImageWindow('bluewindow', self.width(), self.height())
+        new_window.show()
+        self.windows.append(new_window)

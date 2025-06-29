@@ -19,6 +19,7 @@ class Window(QWidget):
         self.color = color
         self.angle = ANGLES[self.color]
         self.coords = calculate_coords(self.angle, self.X, self.Y)
+        self.state = False
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.moves)
@@ -82,8 +83,6 @@ class Window(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton or event.button() == Qt.MouseButton.RightButton:
-            if not check():
-                activated()
-                self.joked.emit()
+            self.state = True
+            self.joked.emit()
 
-                exec(f'joke{self.color + 1}(self.X, self.Y, self.sound)')

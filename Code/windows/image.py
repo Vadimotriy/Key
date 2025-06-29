@@ -1,6 +1,7 @@
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel, QWidget
 from PyQt6.QtCore import QTimer, pyqtSignal, Qt
+from PyQt6.QtGui import QCursor
 
 from Code.constants import *
 
@@ -26,5 +27,6 @@ class ImageWindow(QWidget):
         self.image.move(0, 0)
         self.image.resize(self.size())
         self.image.setPixmap(self.pixmap)
+        self.setCursor(QCursor(Qt.CursorShape.BlankCursor))
 
         self.showFullScreen()

@@ -41,10 +41,13 @@ def move_x_y(x, y, coords):
     return x, y
 
 
-def check():
-    return ACTIVATED
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
 
 
-def activated():
-    global ACTIVATED
-    ACTIVATED = True
+def sound_on():
+    devices = AudioUtilities.GetSpeakers()
+    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    volume = cast(interface, POINTER(IAudioEndpointVolume))
+    volume.SetMasterVolumeLevelScalar(0.5, None)
