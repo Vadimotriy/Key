@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 
 from PyQt6.QtWidgets import QApplication
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
@@ -12,10 +13,11 @@ def joke1(width, height, mixer):  # Звук на максимум
     devices = AudioUtilities.GetSpeakers()
     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
     volume = cast(interface, POINTER(IAudioEndpointVolume))
-    volume.SetMasterVolumeLevelScalar(0.1, None)
+    volume.SetMasterVolumeLevelScalar(0.5, None)
 
     for i in range(5):
         mixer.sound.play()
+    sleep(3)
 
 
 def joke2(width, height, mixer):  # Звук на максимум

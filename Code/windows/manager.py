@@ -38,4 +38,3 @@ class Manager():
     def close(self):
         for win in self.windows:
             win.close()
-        sleep(3)
